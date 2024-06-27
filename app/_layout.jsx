@@ -3,6 +3,25 @@ import { useFonts } from "expo-font";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import { View, Text } from 'react-native'
 import LoginScreen from './../components/LoginScreen'
+import *as  SecureStore from 'expo-secure-store';
+
+const tokenCache = {
+  async getToken(key){
+    try{
+      return SecureStore.getItemAsync(key);
+    }catch(err){
+      return null;
+    }
+  },
+  async setToken(key, value){
+    try{
+      return SecureStore.setItemAsync(key, value);
+    }catch(err){
+      console.error("Failed to set token", err);
+      return;
+    }
+  },
+};
 
 export default function RootLayout() {
   //adding fonts
@@ -19,6 +38,7 @@ export default function RootLayout() {
   });
   return (
     <ClerkProvider
+    tokenCache={tokenCache}
       publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY} >
    
       <SignedIn>
