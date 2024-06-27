@@ -7,6 +7,7 @@ import {Colors} from './../../constants/Colors.ts';
 
 export default function TabLayout() {
   return (
+    
   <Tabs screenOptions={{
     headerShown:false,
     tabBarActiveTintColor:Colors.PRIMARY,
